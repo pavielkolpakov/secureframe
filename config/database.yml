@@ -1,0 +1,20 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  # For details on connection pooling, see Rails configuration guide
+  # https://guides.rubyonrails.org/configuring.html#database-pooling
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  database: secureframe_development
+
+# test:
+#   <<: *default
+#   database: secureframe_test
+
+# production:
+#   <<: *default
+#   database: secureframe_production
+#   username: secureframe
+#   password: <%= ENV["SECUREFRAME_DATABASE_PASSWORD"] %>

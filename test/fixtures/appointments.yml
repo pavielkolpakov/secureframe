@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  email: MyString
+  coach: one
+  date: 2024-03-28 22:35:42
+
+two:
+  name: MyString
+  email: MyString
+  coach: two
+  date: 2024-03-28 22:35:42
