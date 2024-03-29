@@ -22,8 +22,8 @@
     <div *ngIf="appointments$ | async as appointments">
         @if(appointments.available_times.length > 0) {
             <mat-chip-listbox aria-label="Fish selection" [(ngModel)]="time" class="chips">
-                <mat-chip-option *ngFor="let time of appointments.available_times">
-                    {{time}}
+                <mat-chip-option *ngFor="let time of appointments.available_times" class="chip-item">
+                    {{converTime(time) | date: 'shortTime'}}
                 </mat-chip-option>
             </mat-chip-listbox>
             <mat-form-field class="input">

@@ -51,12 +51,24 @@ export class CoachCardComponent {
     if (this.name && this.email && this.time) {
       this.errorMessage = "";
       this.response$ = this.appointmentsService.bookAppointment(this.coach.id, this.name, this.email, `${formatDate(this.date, 'yyyy-MM-dd', 'en-US')} ${this.time}`);
+
+      this.appointments$ = null;
+      this.time = null;
+      this.name = null;
+      this.email = null;
     } else {
       this.errorMessage = "please input all requiered data";
     }
   }
 
+  converTime(time: string) {
+    const parsed = new Date(Date.parse(`2024-10-10T${time}`));
+    console.log(parsed);
+    return parsed;
+  }
+
   myFilter = (d: Date | null): boolean => {
-    return this.coach.available_days.includes(formatDate(d, 'EEEE', 'en-US'));
+    const today = new Date()
+    return this.coach.available_days.includes(formatDate(d, 'EEEE', 'en-US')) && today < d;
   };
 }
