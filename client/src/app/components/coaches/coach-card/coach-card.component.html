@@ -1,0 +1,48 @@
+<mat-card class="card">
+    <mat-card-header>
+        <mat-card-title>{{coach.name}}</mat-card-title>
+        <mat-card-subtitle class="subtitle">Timezone: {{coach.timezone}}</mat-card-subtitle>
+        <!-- <mat-card-subtitle>Available days: {{coach.available_days}}</mat-card-subtitle> -->
+    </mat-card-header>
+
+    <mat-form-field class="datepicker">
+        <mat-label>Choose a date</mat-label>
+        <input 
+            matInput 
+            (dateChange)="getAvailableAppointments($event)" 
+            [(ngModel)]="date" 
+            [matDatepicker]="picker"
+            [matDatepickerFilter]="myFilter"    
+        >
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <div *ngIf="appointments$ | async as appointments">
+        @if(appointments.available_times.length > 0) {
+            <mat-chip-listbox aria-label="Fish selection" [(ngModel)]="time" class="chips">
+                <mat-chip-option *ngFor="let time of appointments.available_times">
+                    {{time}}
+                </mat-chip-option>
+            </mat-chip-listbox>
+            <mat-form-field class="input">
+                <input matInput [(ngModel)]="email" placeholder="Email">
+                
+            </mat-form-field>
+            <mat-form-field class="input">
+                <input matInput [(ngModel)]="name" placeholder="Name">
+
+            </mat-form-field>
+        } @else {
+            <div class="error">No available times</div>
+        }
+    </div>
+
+    <mat-card-actions>
+        <button mat-flat-button color="primary" (click)="bookAppointment()">Book an appointment</button>
+    </mat-card-actions>
+
+    <p *ngIf="errorMessage" class="error">{{errorMessage}}</p>
+    <p *ngIf="response$ | async as response" class="success">{{response.message}}</p>
+</mat-card>

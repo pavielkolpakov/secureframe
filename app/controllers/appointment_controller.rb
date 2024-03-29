@@ -18,11 +18,17 @@ class AppointmentController < ApplicationController
     end
 
     def create
-        Appointment.create(
-            name: params[:name], 
-            email: params[:email], 
-            date: params[:date], 
-            coach_id: params[:coach_id]
-        )
+        if Appointment.find_by(date: params[:date], coach_id: params[:coach_id])
+            render json: {error: "Appointment exists!"}, status: 409
+        else
+            Appointment.create(
+                name: params[:name], 
+                email: params[:email], 
+                date: params[:date], 
+                coach_id: params[:coach_id]
+            )
+
+            render json: {message: "appointment booked!"}
+        end
     end
 end

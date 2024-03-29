@@ -1,0 +1,6 @@
+<section class="container">
+    <h2>Choose your coach to book an appointment</h2>
+    <div class="card-wrapper">
+        <app-coach-card *ngFor="let coach of coaches$ | async" [coach]="coach"></app-coach-card>
+    </div>
+</section>
